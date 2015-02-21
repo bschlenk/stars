@@ -144,19 +144,11 @@ function calculateDistance(pointA, pointB) {
 
 function constrainVector(vector, max, min) {
     var magnitude = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
-    if (magnitude > max) {
-        return {
-            x: (vector.x / magnitude) * max,
-            y: (vector.y / magnitude) * max
-        };
+    var amplifier = magnitude > max ? max : min && magnitue < min ? min : magnitude;
+    return {
+        x: (vector.x / magnitude) * amplifier,
+        y: (vector.y / magnitude) * amplifier
     }
-    if (min && magnitude < min) {
-        return {
-            x: (vector.x / magnitude) * min,
-            y: (vector.y / magnitude) * min
-        };
-    }
-    return vector;
 }
 
 function getTime() {
