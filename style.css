@@ -20,25 +20,25 @@
     height: 100%
 }
 
-#parameters {
+.debug {
     position: fixed;
     top: 10px;
     left: 10px;
     opacity: 0.6;
+    z-index: 10;
     background-color: #ccc;
 }
 
-#paraeters tr:first-child {
+.debug table tr:first-child {
     text-align: right;
 }
 
-
-table td, table th {
+.debug table td, table th {
     text-align:right;
 }
 
-table td + td, table th + th {
-    text-align:left;
+.debug table td + td, table th + th {
+    text-align: left;
 }
 
 
