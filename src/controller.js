@@ -56,11 +56,11 @@ export default class Controller {
       this.delta -= TIMESTEP;
     }
 
-    while (this.starTimer >= Variables.SPAWN_INTERVAL) {
+    while (this.starTimer >= Variables['SPAWN_INTERVAL']) {
       const star = createStar(this.drawPosition);
       this.state.addStar(star);
       // console.log('%c added star %s', `color: ${star.color}`, star);
-      this.starTimer -= Variables.SPAWN_INTERVAL;
+      this.starTimer -= Variables['SPAWN_INTERVAL'];
     }
 
     this.view.render();

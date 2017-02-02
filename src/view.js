@@ -51,7 +51,7 @@ export default class View {
    * Clear the canvas by drawing the background color.
    */
   clear() {
-    this.ctx.fillStyle = Variables.BACKGROUND_COLOR;
+    this.ctx.fillStyle = Variables['BACKGROUND_COLOR'];
     this.ctx.fillRect(0, 0, this.width, this.height);
   }
 

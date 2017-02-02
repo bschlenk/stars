@@ -29,8 +29,8 @@ export function getRandomScreenPosition(view) {
  * @return {string} Hex color.
  */
 export function getColor() {
-  return (Variables.STAR_COLOR === 'random')
-        ? getRandomColor() : Variables.STAR_COLOR;
+  return (Variables['STAR_COLOR'] === 'random')
+        ? getRandomColor() : Variables['STAR_COLOR'];
 }
 
 /**
@@ -49,10 +49,10 @@ export function getRandomColor() {
  * @return {!Vector}
  */
 export function getRandomVector() {
-  const { MAX_ACCELERATION } = Variables;
+  const acc = Variables['MAX_ACCELERATION'];
   const vector = new Vector(
-      (Math.random() * MAX_ACCELERATION * 2) - MAX_ACCELERATION,
-      (Math.random() * MAX_ACCELERATION * 2) - MAX_ACCELERATION);
+      (Math.random() * acc * 2) - acc,
+      (Math.random() * acc * 2) - acc);
 
-  return vector.clamp(MAX_ACCELERATION).floor();
+  return vector.clamp(acc).floor();
 }
