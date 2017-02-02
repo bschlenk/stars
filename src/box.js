@@ -46,7 +46,7 @@ export default class Box {
     }
 
     // one box is above other
-    if (this.startY < box.endY || box.startY < this.endY) {
+    if (this.startY > box.endY || box.startY > this.endY) {
       return false;
     }
 
