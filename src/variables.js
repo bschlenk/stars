@@ -41,6 +41,12 @@ export class VariableDisplay {
 
     const table = document.createElement('table');
     this.element.appendChild(table);
+    const button = document.createElement('button');
+    this.element.appendChild(button);
+    button.innerHTML = 'Close';
+    button.onclick = e => {
+      this.hide();
+    };
 
     for (const [key, value] of Object.entries(Variables)) {
       var row = document.createElement('tr');
