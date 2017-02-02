@@ -20,7 +20,6 @@ export const Variables = {
   'MIN_ACCELERATION' : 600,
   'MAX_VELOCITY'     : 1000,
   'SPAWN_INTERVAL'   : 100,
-  'STAR_LIFESPAN'    : 5000,
   'STAR_SIZE'        : 1,
   'EXPANSION_RATE'   : 10,
 }
