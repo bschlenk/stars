@@ -123,11 +123,15 @@ export default class Controller {
     });
 
     window.addEventListener('focus', e => {
-      this.start();
+      if (Variables['TOGGLE_ON_FOCUS_BLUR']) {
+        this.start();
+      }
     });
 
     window.addEventListener('blur', e => {
-      this.stop();
+      if (Variables['TOGGLE_ON_FOCUS_BLUR']) {
+        this.stop();
+      }
     });
   }
 }

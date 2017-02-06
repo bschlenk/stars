@@ -13,15 +13,16 @@ export const Shape = {
  * @type {!Object}
  */
 export const Variables = {
-  'STAR_COLOR'       : 'random',
-  'STAR_SHAPE'       : Shape.SQUARE,
-  'BACKGROUND_COLOR' : '#000',
-  'MAX_ACCELERATION' : 800,
-  'MIN_ACCELERATION' : 600,
-  'MAX_VELOCITY'     : 1000,
-  'SPAWN_INTERVAL'   : 100,
-  'STAR_SIZE'        : 1,
-  'EXPANSION_RATE'   : 10,
+  'STAR_COLOR'          : 'random',
+  'STAR_SHAPE'          : Shape.SQUARE,
+  'BACKGROUND_COLOR'    : '#000',
+  'MAX_ACCELERATION'    : 800,
+  'MIN_ACCELERATION'    : 600,
+  'MAX_VELOCITY'        : 1000,
+  'SPAWN_INTERVAL'      : 100,
+  'STAR_SIZE'           : 1,
+  'EXPANSION_RATE'      : 10,
+  'TOGGLE_ON_FOCUS_BLUR': true,
 }
 
 export class VariableDisplay {
