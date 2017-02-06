@@ -4,24 +4,7 @@ import Vector from './vector';
 import { Variables } from './variables';
 
 /**
- * @return {!Star} A randomly created star.
  */
-export function createStar(position) {
-    const acceleration = getRandomVector();
-    const color = getColor();
-    return new Star(position, acceleration, color);
-}
-
-/**
- * @param {!View} view The view to get the screen dimensions.
- * @return {!Vector} A random position on the screen.
- */
-export function getRandomScreenPosition(view) {
-  const { width, height } = view;
-  return new Vector(
-      Math.floor(Math.random() * width),
-      Math.floor(Math.random() * height));
-}
 
 /**
  * Get the color to use for new stars. Based on STAR_COLOR,

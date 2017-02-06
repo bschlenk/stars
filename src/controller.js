@@ -1,8 +1,9 @@
 import View from './view';
+import Star from './star';
 import State from './state';
 import Vector from './vector';
 import { Variables } from './variables';
-import { createStar } from './utils';
+import { getColor, getRandomVector } from './utils';
 
 // 60 fps
 const TIMESTEP = 1000 / 60;
@@ -57,7 +58,7 @@ export default class Controller {
     }
 
     while (this.starTimer >= Variables['SPAWN_INTERVAL']) {
-      const star = createStar(this.drawPosition);
+      const star = this.createStar(this.drawPosition);
       this.state.addStar(star);
       // console.log('%c added star %s', `color: ${star.color}`, star);
       this.starTimer -= Variables['SPAWN_INTERVAL'];
@@ -97,6 +98,16 @@ export default class Controller {
     } else {
       this.start();
     }
+  }
+
+  /**
+   * @param {!Vector} position The point at which to initialze the star.
+   * @return {!Star} A randomly created star.
+   */
+  createStar(position) {
+      const color = getColor();
+      const acceleration = getRandomVector();
+      return new Star(position, acceleration, color);
   }
 
   installBindings() {
