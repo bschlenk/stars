@@ -63,9 +63,10 @@ export default class Controller {
     }
 
     while (this.starTimer >= Variables['SPAWN_INTERVAL']) {
-      const star = this.createStar(this.drawPosition);
-      this.state.addStar(star);
-      // console.log('%c added star %s', `color: ${star.color}`, star);
+      if (this.state.hasRoom()) {
+        const star = this.createStar(this.drawPosition);
+        this.state.addStar(star);
+      }
       this.starTimer -= Variables['SPAWN_INTERVAL'];
     }
 
