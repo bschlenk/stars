@@ -1,3 +1,5 @@
+import { LOG, log } from './logging';
+
 /**
  * @enum {string}
  */
@@ -69,7 +71,7 @@ export class VariableDisplay {
       input.onchange = (key => {
         return e => {
           const value = e.currentTarget.value;
-          console.log('%s changed to %s', key, value)
+          LOG && log('%s changed to %s', key, value)
           Variables[key] = value;
         };
       })(key);

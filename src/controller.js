@@ -4,6 +4,7 @@ import State from './state';
 import Vector from './vector';
 import { Variables } from './variables';
 import { getColor, getRandomVector } from './utils';
+import { LOG, log } from './logging';
 
 /** @const {number} */
 const KEY_SPACE = 32;
@@ -66,6 +67,9 @@ export default class Controller {
       if (this.state.hasRoom()) {
         const star = this.createStar(this.drawPosition);
         this.state.addStar(star);
+        LOG && log('%c added star %s', `color: ${star.color}`, star);
+      } else {
+        LOG && log('at max star count of %d', Variables['MAX_STAR_COUNT']);
       }
       this.starTimer -= Variables['SPAWN_INTERVAL'];
     }
@@ -77,9 +81,12 @@ export default class Controller {
    * Completely fill state with random stars, causing a firework effect.
    */
   fillStars() {
+    let starsAdded = 0;
     while (this.state.hasRoom()) {
       this.state.addStar(this.createStar(this.drawPosition));
+      ++starsAdded;
     }
+    LOG && log('added %d stars', starsAdded);
   }
 
   /**
@@ -143,6 +150,7 @@ export default class Controller {
     });
 
     document.addEventListener('keypress', e => {
+      LOG && log('got keypress %d', e.keyCode);
       switch (e.keyCode) {
         case KEY_SPACE: return this.toggle();
         case KEY_F: return this.fillStars();

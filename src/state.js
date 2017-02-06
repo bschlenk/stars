@@ -1,6 +1,7 @@
 import Box from './box';
 import Star from './star';
 import Debug from './debug';
+import { LOG, log } from './logging';
 import { Variables } from './variables';
 
 export default class State {
@@ -60,7 +61,7 @@ export default class State {
       star.tick(delta / 1000);
       if (!bounds.overlaps(star.getBounds())) {
         this.removeStar(star);
-        // console.log('%c removed star %s', `color: ${star.color}`, star);
+        LOG && log('%c removed star %s', `color: ${star.color}`, star);
       }
     });
     this.debug.set('STAR_COUNT', this.countStars());

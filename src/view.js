@@ -2,6 +2,7 @@ import { Variables, Shape } from './variables';
 import State from './state';
 import Vector from './vector';
 import Box from './box';
+import { LOG, log } from './logging';
 
 /**
  * Encapsulates the canvas and context.
@@ -112,7 +113,7 @@ export default class View {
         this.drawCircle(drawable);
         break;
       default:
-        console.error('%s is not a valid shape', drawable.shape);
+        LOG && log('%s is not a valid shape', drawable.shape);
     }
   }
 

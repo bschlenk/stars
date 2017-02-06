@@ -1,3 +1,5 @@
+import { LOG, log } from './logging';
+
 const LEFT = 37;
 const UP = 38;
 const RIGHT = 39;
@@ -59,8 +61,9 @@ export default class Konami {
    */
   handleKeypress(key) {
     this.states[this.index](key);
-    console.log('konami index after key %d: %d', key, this.index);
+    LOG && log('konami index after key %d: %d', key, this.index);
     if (this.index === this.states.length) {
+      LOG && log('konami code activated!');
       this.activate();
       this.index = 0;
     }
