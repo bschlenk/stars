@@ -22,6 +22,7 @@ export const Variables = {
   'SPAWN_INTERVAL'      : 100,
   'STAR_SIZE'           : 1,
   'EXPANSION_RATE'      : 10,
+  'MAX_STAR_COUNT'      : 500,
   'TOGGLE_ON_FOCUS_BLUR': true,
 }
 

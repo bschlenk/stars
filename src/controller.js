@@ -5,6 +5,11 @@ import Vector from './vector';
 import { Variables } from './variables';
 import { getColor, getRandomVector } from './utils';
 
+/** @const {number} */
+const KEY_SPACE = 32;
+/** @const {number} */
+const KEY_F = 102;
+
 // 60 fps
 const TIMESTEP = 1000 / 60;
 const getTime = (() => {
@@ -68,6 +73,15 @@ export default class Controller {
   }
 
   /**
+   * Completely fill state with random stars, causing a firework effect.
+   */
+  fillStars() {
+    while (this.state.hasRoom()) {
+      this.state.addStar(this.createStar(this.drawPosition));
+    }
+  }
+
+  /**
    * Start the render cycle.
    */
   start() {
@@ -128,8 +142,9 @@ export default class Controller {
     });
 
     document.addEventListener('keypress', e => {
-      if (e.keyCode === 32) {
-        this.toggle();
+      switch (e.keyCode) {
+        case KEY_SPACE: return this.toggle();
+        case KEY_F: return this.fillStars();
       }
     });
 

@@ -1,6 +1,7 @@
 import Box from './box';
 import Star from './star';
 import Debug from './debug';
+import { Variables } from './variables';
 
 export default class State {
   constructor() {
@@ -31,6 +32,14 @@ export default class State {
    */
   countStars() {
     return Object.keys(this.stars).length;
+  }
+
+  /**
+   * Return true if there is still room for more stars.
+   * @return {boolean}
+   */
+  hasRoom() {
+    return this.countStars() < Variables['MAX_STAR_COUNT'];
   }
 
   /**
