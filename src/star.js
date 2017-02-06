@@ -1,6 +1,7 @@
 import { Variables, Shape } from './variables';
 import Vector from './vector';
 import Box from './box';
+import { getTime } from './utils';
 
 let starId = 0;
 
@@ -12,15 +13,17 @@ export default class Star {
    * @param {!Vector} pos The starting position of the star.
    * @param {!Vector} acc The acceleration of the star.
    * @param {string} color The css color of the star.
+   * @param {Vector=} vel The initial velocity, or zero if not specified.
    */
-  constructor(pos, acc, color) {
+  constructor(pos, acc, color, vel) {
     this.color = color;
     this.pos = pos
     this.acc = acc;
-    /** @type {!Vector} */ this.vel = Vector.zero();
+    /** @type {!Vector} */ this.vel = vel || Vector.zero();
     /** @type {number} */ this.size = parseInt(Variables['STAR_SIZE'], 10);
     /** @type {number} */ this.id = starId++;
     /** @type {!Shape} */ this.shape = this.getShape();
+    /** @type {number} */ this.creationTime = getTime();
   }
 
   /**

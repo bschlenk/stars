@@ -3,7 +3,7 @@ import Star from './star';
 import State from './state';
 import Vector from './vector';
 import { Variables } from './variables';
-import { getColor, getRandomVector } from './utils';
+import { getTime, getColor, getRandomVector, getRandomInt } from './utils';
 import { LOG, log } from './logging';
 
 /** @const {number} */
@@ -13,12 +13,6 @@ const KEY_F = 102;
 
 // 60 fps
 const TIMESTEP = 1000 / 60;
-const getTime = (() => {
-  if (window.performance && window.performance.now) {
-    return () => window.performance.now();
-  }
-  return () => new Date().getTime();
-})();
 
 export default class Controller {
   /**
@@ -30,7 +24,8 @@ export default class Controller {
     this.state = state;
     // initialize the draw position to the center of the screen
     this.drawPosition = new Vector(view.width / 2, view.height / 2);
-
+    /** @private {!Vector} */
+    this.previousDrawPosition = this.drawPosition;
     /** @private {boolean} */
     this.running = false;
     /** @private {number} */
@@ -57,6 +52,11 @@ export default class Controller {
     this.starTimer += diff;
     this.lastTime = timestamp;
 
+    const cursorVelocity = this.calculateCursorVelocity(diff);
+    this.previousDrawPosition = this.drawPosition;
+
+    LOG && log('cursor velocity: %s', cursorVelocity.toString());
+
     // Simulate the total elapsed time in fixed-size chunks
     while (this.delta >= TIMESTEP) {
       this.state.tick(TIMESTEP, this.view.bounds);
@@ -65,7 +65,7 @@ export default class Controller {
 
     while (this.starTimer >= Variables['SPAWN_INTERVAL']) {
       if (this.state.hasRoom()) {
-        const star = this.createStar(this.drawPosition);
+        const star = this.createStar(this.drawPosition, cursorVelocity);
         this.state.addStar(star);
         LOG && log('%c added star %s', `color: ${star.color}`, star);
       } else {
@@ -123,13 +123,32 @@ export default class Controller {
   }
 
   /**
+   * Calculate the velocity of the cursor based on its last position.
+   * @param {number} delta The time passed since last calling this.
+   * @return {!Vector} The velocity of the cursor.
+   */
+  calculateCursorVelocity(delta) {
+    const distance = this.drawPosition.add(this.previousDrawPosition.scale(-1));
+    return distance.scale(1/delta);
+  }
+
+  /**
    * @param {!Vector} position The point at which to initialze the star.
+   * @param {Vector=} velocity The velocity bias to start the star with.
    * @return {!Star} A randomly created star.
    */
-  createStar(position) {
+  createStar(position, velocity) {
       const color = getColor();
-      const acceleration = getRandomVector();
-      return new Star(position, acceleration, color);
+      let acceleration = getRandomVector();
+      if (velocity && !velocity.isZero()) {
+        // if we were given a velocity, limit the acceleration to the same
+        // general direction as the velocity.
+        const angle = getRandomInt(180) - 90;
+        acceleration = velocity.normalize()
+                              .rotate(angle)
+                              .scale(acceleration.magnitude());
+      }
+      return new Star(position, acceleration, color, velocity);
   }
 
   installBindings() {
