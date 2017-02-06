@@ -10,16 +10,23 @@ export default class View {
 
   /**
    * @param {State} state
-   * @param {HTMLCanvasElement=} canvas
+   * @param {Element=} parent
    */
-  constructor(state, canvas) {
+  constructor(state, parent) {
     /** @private */ this.state = state;
-    /** @type {!Element} */ this.gameCanvas = canvas ||
-        /** @type {!Element} */ (document.getElementById('gameCanvas'));
-    /** @type {!Object} */ this.ctx = this.gameCanvas.getContext('2d');
+    /** @type {!Element} */ this.canvas = document.createElement('canvas');
+    /** @type {!Object} */ this.ctx = this.canvas.getContext('2d');
     /** @type {number} */ this.width = window.innerWidth;
     /** @type {number} */ this.height = window.innerHeight;
     /** @type {!Box} */ this.bounds = this.createBounds();
+
+    this.canvas.style.zIndex = -1;
+    this.canvas.style.position = 'fixed';
+    this.canvas.style.top = '0';
+    this.canvas.style.left = '0';
+
+    parent = parent || document.body;
+    parent.appendChild(this.canvas);
 
     this.installBindings();
 
@@ -62,8 +69,8 @@ export default class View {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
 
-    this.gameCanvas.width = this.width;
-    this.gameCanvas.height = this.height;
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
 
     this.bounds = this.createBounds();
     this.render();

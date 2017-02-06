@@ -34,8 +34,14 @@ export class VariableDisplay {
    */
   constructor(element, parent) {
     this.element = element || document.createElement('div');
-    this.element.classList.add('debug');
     this.element.style.display = 'none';
+    this.element.style.position = 'fixed';
+    this.element.style.top = '10px';
+    this.element.style.left = '10px';
+    this.element.style.opacity = '0.8';
+    this.element.style.zIndex = '10';
+    this.element.style.backgroundColor = '#CCC';
+
     parent = parent || document.body;
     parent.appendChild(this.element);
 
@@ -51,7 +57,9 @@ export class VariableDisplay {
     for (const [key, value] of Object.entries(Variables)) {
       var row = document.createElement('tr');
       var labelCol = document.createElement('td');
+      labelCol.style.textAlign = 'right';
       var inputCol = document.createElement('td');
+      inputCol.style.textAlign = 'left';
       var label = document.createElement('label');
       label.innerHTML = key;
       labelCol.appendChild(label);

@@ -7,13 +7,14 @@ export default class Debug {
    */
   constructor() {
     /** @private {!Element} */
-    this.debugTable =
-        /** @type {!Element} */ (document.getElementById('debug'));
-
+    this.element = document.createElement('table');
     /** @private {!Object} */
     this.variables = {};
   }
 
+  /**
+   * @return {!Debug} The Debug instance.
+   */
   static getInstance() {
     if (instance === undefined) {
       instance = new Debug();
@@ -50,7 +51,7 @@ export default class Debug {
     displayCol.appendChild(display);
     row.appendChild(labelCol);
     row.appendChild(displayCol);
-    this.debugTable.appendChild(row);
+    this.element.appendChild(row);
 
     const toStore = { value, label, display };
     this.variables[key] = toStore;
