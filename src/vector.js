@@ -1,6 +1,10 @@
+/** @const {number} */
+const PRECISION = 1e-6;
+
 /**
  * Represents a vector from the origin.
  * Used both as a point and a vector throughout.
+ * Vector objects are meant to be immutable.
  */
 export default class Vector {
   /**
@@ -9,7 +13,9 @@ export default class Vector {
    * @return {!Vector}
    */
   constructor(x, y) {
+    /** @const {number} */
     this.x = x;
+    /** @const {number} */
     this.y = y;
   }
 
@@ -17,15 +23,34 @@ export default class Vector {
    * @return {!Vector}
    */
   static zero() {
-    return new Vector(0, 0);
+    return ZERO;
   }
 
   /**
    * Return a vector with identical x, y values.
+   * @param {number} val
    * @return {!Vector}
    */
   static square(val) {
     return new Vector(val, val);
+  }
+
+  /**
+   * Return true if this and other are the same vector.
+   * @param {!Vector} other
+   * @return {boolean}
+   */
+  equals(other) {
+    return Math.abs(this.x - other.x) <= PRECISION
+        && Math.abs(this.y - other.y) <= PRECISION;
+  }
+
+  /**
+   * Return whether this vector represents the zero vector.
+   * @return {boolean}
+   */
+  isZero() {
+    return this.equals(ZERO);
   }
 
   /**
@@ -79,6 +104,47 @@ export default class Vector {
   }
 
   /**
+   * Returns a vector of magnitude 1, pointing in the original direction.
+   * @return {!Vector}
+   */
+  normalize() {
+    return this.scale(1/this.magnitude());
+  }
+
+  /**
+   * @param {...!Vector} others A series of vectors to average.
+   * @return {!Vector} A vector that is the average of this and other.
+   */
+  average(...others) {
+    let ave = this;
+    for (let vec of others) {
+      ave = ave.add(vec);
+    }
+    return ave.scale(1/(others.length + 1));
+  }
+
+  /**
+   * Rotate a vector by radians.
+   * @param {number} radians The angle to rotate, in radians.
+   * @return {!Vector} The new rotated vector.
+   */
+  rotate(radians) {
+    const newX = this.x * Math.cos(radians) - this.y * Math.sin(radians);
+    const newY = this.x * Math.sin(radians) + this.y * Math.cos(radians);
+    return new Vector(newX, newY);
+  }
+
+  /**
+   * Rotate the vector, using degrees.
+   * @param {number} degrees
+   * @return {!Vector}
+   */
+  rotateDeg(degrees) {
+    const rads = degrees * Math.PI / 180;
+    return this.rotate(rads);
+  }
+
+  /**
    * @param {number} max The largest magnitude this vector should have.
    * @param {number|null} min The smallest magnitude this vector should have.
    * @return {!Vector} The clamped vector.
@@ -98,6 +164,10 @@ export default class Vector {
    * @return {string}
    */
   toString() {
-    return `(${this.x}, ${this.y})`;
+    return `(${this.x.toFixed(6)}, ${this.y.toFixed(6)})`;
   }
 }
+
+// This has to be defined after Vector for some reason.
+/** @const {!Vector} */
+const ZERO = new Vector(0, 0);
