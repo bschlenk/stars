@@ -149,7 +149,7 @@ export default class Controller {
         // general direction as the velocity.
         const angle = getRandomInt(180) - 90;
         acceleration = velocity.normalize()
-                              .rotate(angle)
+                              .rotateDeg(angle)
                               .scale(acceleration.magnitude());
       }
       return new Star(position, acceleration, color, velocity);
