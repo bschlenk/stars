@@ -50,7 +50,8 @@ export default class Star {
    * @return {!Box}
    */
   getBounds() {
-    const start = this.pos.add(Vector.square(-(this.size / 2)));
+    const halfSize = this.size / 2;
+    const start = this.pos.add(Vector.of(-halfSize, -halfSize));
     const end = start.add(Vector.square(this.size));
     return new Box(start, end);
   }

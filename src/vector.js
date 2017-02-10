@@ -1,5 +1,5 @@
 /** @const {number} */
-const PRECISION = 1e-6;
+export const PRECISION = 1e-6;
 
 /**
  * Represents a vector from the origin.
@@ -20,6 +20,16 @@ export default class Vector {
   }
 
   /**
+   * Convenience method for creating a new vector.
+   * @param {number} x
+   * @param {number} y
+   * @return {!Vector}
+   */
+  static of(x, y) {
+    return new Vector(x, y);
+  }
+
+  /**
    * @return {!Vector}
    */
   static zero() {
@@ -36,7 +46,19 @@ export default class Vector {
   }
 
   /**
+   * Return a vector pointing in the same direction as the
+   * given ``vec``, but with the given ``magnitude``.
+   * @param {!Vector} vec
+   * @param {number} magnitude
+   * @return {!Vector}
+   */
+  static fromVector(vec, magnitude) {
+    return vec.normalize().scale(magnitude);
+  }
+
+  /**
    * Return true if this and other are the same vector.
+   * Takes PRECISION into account due to floating point rounding errors.
    * @param {!Vector} other
    * @return {boolean}
    */
@@ -54,18 +76,11 @@ export default class Vector {
   }
 
   /**
+   * Clone this vector.
    * @return {!Vector}
    */
   clone() {
     return new Vector(this.x, this.y);
-  }
-
-  /**
-   * Take the floor of both components of the vector.
-   * @return {!Vector}
-   */
-  floor() {
-    return new Vector(Math.floor(this.x), Math.floor(this.y));
   }
 
   /**
@@ -83,10 +98,12 @@ export default class Vector {
    * @return {!Vector}
    */
   add(vector) {
-    return new Vector(this.x + vector.x, this.y + vector.y);
+    const { x, y } = vector;
+    return new Vector(this.x + x, this.y + y);
   }
 
   /**
+   * Get the distance between this vector and another vector.
    * @param {!Vector} other
    * @return {number}
    */
@@ -97,10 +114,27 @@ export default class Vector {
   }
 
   /**
+   * Get the magnitude of this vector.
    * @return {number} The magnitude of the vector.
    */
   magnitude() {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+  }
+
+  /**
+   * Get the angle in radians of this vector.
+   * @return {number}
+   */
+  angle() {
+    return Math.atan2(this.y, this.x);
+  }
+
+  /**
+   * Get the angle in degrees of this vector.
+   * @return {number}
+   */
+  angleDeg() {
+    return this.angle() * 180 / Math.PI;
   }
 
   /**
@@ -145,19 +179,19 @@ export default class Vector {
   }
 
   /**
+   * Clamp a vector to have  a magnitude of at least ``min``
+   * and at most ``max``. Zero vectors are unchanged, as there is no
+   * information to determine direction.
    * @param {number} max The largest magnitude this vector should have.
-   * @param {number|null} min The smallest magnitude this vector should have.
+   * @param {number|undefined} min The smallest magnitude this vector should have.
    * @return {!Vector} The clamped vector.
    */
-  clamp(max, min = null) {
-    const magnitude = this.magnitude();
-    if (magnitude === 0) {
-      return this.clone();
+  clamp(max, min = 0) {
+    if (this.isZero()) {
+      return this;
     }
-    const amplifier = magnitude > max
-        ? max : min !== null && magnitude < min
-            ? min : magnitude;
-    return this.scale(amplifier / magnitude);
+    const magnitude = Math.max(min, Math.min(max, this.magnitude()));
+    return this.normalize().scale(magnitude);
   }
 
   /**

@@ -1,4 +1,4 @@
-import Vector from '../src/vector';
+import Vector, { PRECISION } from '../src/vector';
 import expect from 'expect';
 
 expect.extend({
@@ -9,7 +9,15 @@ expect.extend({
       this.actual.toString(), other.toString()
     );
     return this;
-  }
+  },
+  toEqualApproximately(other) {
+    expect.assert(
+      Math.abs(this.actual - other) <= PRECISION,
+      'expected %d to be equal to %d',
+      this.actual, other
+    );
+    return this;
+  },
 });
 
 describe('Vector', () => {
@@ -49,5 +57,41 @@ describe('Vector', () => {
       expect(input.rotate(3*Math.PI/2)).toBeClassEqual(new Vector(0, -1));
       expect(input.rotate(2*Math.PI)).toBeClassEqual(new Vector(1, 0));
     });
+  });
+
+  describe('#fromVector()', () => {
+    it('should create a new vector in the direction of the old vector', () => {
+      const vec1 = new Vector(1, 1);
+      const vec2 = Vector.fromVector(vec1, 5);
+      expect(vec2.magnitude()).toEqualApproximately(5);
+      expect(vec2.angle()).toEqualApproximately(vec1.angle());
+    });
+
+    it('should create a new vector in the direction of a slightly more complex vector', () => {
+      const vec1 = new Vector(3, 7);
+      const vec2 = Vector.fromVector(vec1, 8);
+      expect(vec2.magnitude()).toEqualApproximately(8);
+      expect(vec2.angle()).toEqualApproximately(vec1.angle());
+    });
+  });
+
+  describe('#clamp()', () => {
+    it('should not change a vector within the clamp range', () => {
+      const vec1 = new Vector(0, 6);
+      const vec2 = vec1.clamp(7);
+      expect(vec2).toBeClassEqual(vec1);
+    });
+
+    it('should reduce a vector that is larger than the max', () => {
+      const vec1 = new Vector(0, 6);
+      const vec2 = vec1.clamp(5);
+      expect(vec2).toBeClassEqual(new Vector(0, 5));
+    });
+
+    it('should increase a vector that is smaller than the min', () => {
+      const vec1 = new Vector(0, 3);
+      const vec2 = vec1.clamp(10, 4);
+      expect(vec2).toBeClassEqual(new Vector(0, 4));
+    })
   });
 });
