@@ -17,6 +17,7 @@ export const Shape = {
 export const Variables = {
   'STAR_COLOR'          : 'random',
   'STAR_SHAPE'          : Shape.SQUARE,
+  'STAR_OPACITY'        : '0.6',
   'BACKGROUND_COLOR'    : '#000',
   'MAX_ACCELERATION'    : 800,
   'MIN_ACCELERATION'    : 600,
