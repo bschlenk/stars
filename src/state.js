@@ -1,6 +1,6 @@
 import Box from './box';
 import Star from './star';
-import Debug from './debug';
+import * as debug from './debug';
 import { LOG, log } from './logging';
 import { Variables } from './variables';
 
@@ -8,7 +8,6 @@ export default class State {
   constructor() {
     /** @private {!Object<number, !Star>} */
     this.stars = {};
-    this.debug = Debug.getInstance();
   }
 
   /**
@@ -64,6 +63,6 @@ export default class State {
         LOG && log('%c removed star %s', `color: ${star.color}`, star);
       }
     });
-    this.debug.set('STAR_COUNT', this.countStars());
+    debug.set('STAR_COUNT', this.countStars());
   }
 }

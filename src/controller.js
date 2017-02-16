@@ -3,7 +3,7 @@ import Star from './star';
 import State from './state';
 import Vector from './vector';
 import { Variables } from './variables';
-import Debug from './debug';
+import * as debug from './debug';
 import { getTime, getColor, getRandomVector, getRandomInt } from './utils';
 import { LOG, log } from './logging';
 
@@ -57,7 +57,7 @@ export default class Controller {
     this.previousDrawPosition = this.drawPosition;
 
     LOG && log('cursor velocity: %s', cursorVelocity.toString());
-    Debug.getInstance().set('CURSOR_VELOCITY', cursorVelocity.toString());
+    debug.set('CURSOR_VELOCITY', cursorVelocity.toString());
 
     // Simulate the total elapsed time in fixed-size chunks
     while (this.delta >= TIMESTEP) {
@@ -99,7 +99,7 @@ export default class Controller {
       return;
     }
     this.running = true;
-    Debug.getInstance().set('RUNNING', this.running);
+    debug.set('RUNNING', this.running);
     this.lastTime = getTime();
     const frame = (timestamp) => {
       this.handleTick(timestamp);
@@ -115,7 +115,7 @@ export default class Controller {
    */
   stop() {
     this.running = false;
-    Debug.getInstance().set('RUNNING', this.running);
+    debug.set('RUNNING', this.running);
   }
 
   toggle() {

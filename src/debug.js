@@ -1,7 +1,5 @@
 
-let instance;
-
-export default class Debug {
+class Debug {
   /**
    * @private
    */
@@ -10,16 +8,6 @@ export default class Debug {
     this.element = document.createElement('table');
     /** @private {!Object} */
     this.variables = {};
-  }
-
-  /**
-   * @return {!Debug} The Debug instance.
-   */
-  static getInstance() {
-    if (instance === undefined) {
-      instance = new Debug();
-    }
-    return instance;
   }
 
   /**
@@ -59,3 +47,14 @@ export default class Debug {
     return toStore;
   }
 }
+
+const instance = new Debug();
+
+/**
+ * @param {!Element} element
+ */
+export function appendTo(element) {
+  element.appendChild(instance.element);
+}
+
+export const set = instance.set.bind(instance);

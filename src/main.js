@@ -3,7 +3,7 @@ import State from './state';
 import Controller from './controller';
 import Konami from './konami';
 import { Variables, VariableDisplay } from './variables';
-import Debug from './debug';
+import * as debug from './debug';
 
 /** @export */
 export default class Stars {
@@ -16,7 +16,7 @@ export default class Stars {
     this.view = new View(this.state);
     this.controller = new Controller(this.view, this.state);
     this.variableDisplay = new VariableDisplay();
-    Debug.appendTo(this.variableDisplay.element);
+    debug.appendTo(this.variableDisplay.element);
     this.konami = new Konami(() => {
       this.variableDisplay.show();
     });
