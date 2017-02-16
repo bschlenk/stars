@@ -24,6 +24,8 @@ export default class Star {
     /** @type {number} */ this.id = starId++;
     /** @type {!Shape} */ this.shape = this.getShape();
     /** @type {number} */ this.creationTime = getTime();
+    /** @type {number} */ this.age = 0;
+    /** @type {boolean} */ this.living = true;
   }
 
   /**
@@ -64,5 +66,6 @@ export default class Star {
     this.vel = this.vel.add(this.acc.scale(elapsed)).clamp(Variables['MAX_VELOCITY'])
     this.pos = this.pos.add(this.vel.scale(elapsed))
     this.size += elapsed * Variables['EXPANSION_RATE'];
+    this.age += elapsed;
   }
 }
