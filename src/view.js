@@ -119,7 +119,7 @@ export default class View {
 
   render() {
     this.clear();
-    this.state.getStars().forEach(star => this.draw(star));
+    this.state.eachStar(star => star.living && this.draw(star));
   }
 
   /**
