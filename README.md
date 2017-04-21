@@ -25,7 +25,7 @@ at tracking my progress through smaller, more incremental commits.
 
 I started this project in 2015 as a way to learn the html5 canvas. I was not very good at
 commiting at that point, hence the very sparse history. In reviving this project I am also
-trying to __commit__ to commiting more frequently. Commits are essentially free after all,
+trying to *commit* to commiting more frequently. Commits are essentially free after all,
 and can be rebased whenever necessary.
 
 I'm only now adding this project to github, and I hope that I am able to gain something
