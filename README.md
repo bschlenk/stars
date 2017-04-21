@@ -1,6 +1,6 @@
 # Stars
 
-Create an effect similar to the lightspeed screensaver on Windows.
+Create an effect similar to the [__flying through space__](https://www.youtube.com/watch?v=SiSXDEIu3GI) screensaver on Windows.
 
 ## Building
 
