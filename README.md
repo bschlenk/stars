@@ -13,8 +13,9 @@ and a bundle.js.map file.
 
 ## Running
 
-Just open the __index.html__ file in a browser. Alternatively, run the `./run.sh`
-script to start up a simple http server and hit `localhost:8000`.
+Just open the __index.html__ file in a browser. Seriously, you don't even need a server.
+Alternatively, if you absolutely love having a server, run the `./run.sh` script to start up
+a simple http server and hit [localhost:8000](http://localhost:8000).
 
 ## History
 
@@ -23,4 +24,5 @@ getting around to adding it to github, and that's partially why the commit
 history is so spotty.
 
 Recently I wanted to start converting my old projects over to es2015 syntax
-to practice modularizing javascript code.
+to practice modularizing javascript code. In doing so I am also trying to get better
+at tracking my progress through smaller, more incremental commits.
