@@ -1,7 +1,9 @@
 #!/bin/sh
 
-OUTPUT='bundle.js'
-SOURCE_MAP="$OUTPUT.map"
+BUILD_DIR="./build"
+OUTPUT_FILE="bundle.js"
+OUTPUT="$BUILD_DIR/$OUTPUT_FILE"
+SOURCE_MAP="$BUILD_DIR/$OUTPUT_FILE.map"
 
 # --debug \
 # --formatting=PRETTY_PRINT \
