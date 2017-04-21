@@ -14,12 +14,21 @@ export const getTime = (() => {
 
 /**
  * Get the color to use for new stars. Based on STAR_COLOR,
- * it will be a random color if STAR_COLOR is "random".
+ * it will be a random color if STAR_COLOR is "random". if
+ * STAR_COLOR is comma separated, one color will be randomly
+ * chosen from the list.
  * @return {string} Hex color.
  */
 export function getColor() {
-  return (Variables['STAR_COLOR'] === 'random')
-        ? getRandomColor() : Variables['STAR_COLOR'];
+  if (Variables['STAR_COLOR'] === 'random') {
+    return getRandomColor();
+  }
+  const color = /** @type {string} */ (Variables['STAR_COLOR']);
+  if (color.includes(',')) {
+    const colors = color.split(',');
+    return colors[getRandomInt(colors.length)];
+  }
+  return color;
 }
 
 /**
