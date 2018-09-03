@@ -1,5 +1,7 @@
 # Stars
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bschlenk/stars.svg)](https://greenkeeper.io/)
+
 Create an effect similar to the [*flying through space*](https://youtu.be/SiSXDEIu3GI?t=2s) screensaver on Windows.
 
 ## Building
