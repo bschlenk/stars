@@ -1,6 +1,5 @@
-import Box from '../src/box';
-import Vector from '../src/vector';
-import expect from 'expect';
+import Box from '../box';
+import Vector from '../vector';
 
 describe('Box', () => {
   describe('#overlaps()', () => {

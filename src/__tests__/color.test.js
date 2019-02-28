@@ -1,5 +1,4 @@
-import Color from '../src/color';
-import expect from 'expect';
+import Color from '../color';
 
 describe('Color', () => {
   describe('#fromString()', () => {
@@ -34,10 +33,10 @@ describe('Color', () => {
     });
 
     it('should return null for invalid strings', () => {
-      expect(Color.fromString('abc')).toNotExist();
-      expect(Color.fromString('invalid')).toNotExist();
-      expect(Color.fromString('rgb()')).toNotExist();
-      expect(Color.fromString('rgb(1, 2, E)')).toNotExist();
+      expect(Color.fromString('abc')).toBeNull();
+      expect(Color.fromString('invalid')).toBeNull();
+      expect(Color.fromString('rgb()')).toBeNull();
+      expect(Color.fromString('rgb(1, 2, E)')).toBeNull();
     });
   });
 });

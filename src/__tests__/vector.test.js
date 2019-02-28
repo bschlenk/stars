@@ -1,22 +1,19 @@
-import Vector, { PRECISION } from '../src/vector';
-import expect from 'expect';
+import Vector, { PRECISION } from '../vector';
 
 expect.extend({
-  toBeClassEqual(other) {
-    expect.assert(
-      this.actual.equals(other),
-      'expected %s to be equal to %s',
-      this.actual.toString(), other.toString()
-    );
-    return this;
+  toBeClassEqual(received, other) {
+    const pass = received.equals(other);
+    return {
+      pass,
+      message: () => `expected ${received.toString()} to be equal to ${other.toString()}`,
+    };
   },
-  toEqualApproximately(other) {
-    expect.assert(
-      Math.abs(this.actual - other) <= PRECISION,
-      'expected %d to be equal to %d',
-      this.actual, other
-    );
-    return this;
+  toEqualApproximately(received, other) {
+    const pass = Math.abs(received - other) <= PRECISION;
+    return {
+      pass,
+      message: () => `expected ${received} to be equal to ${other}`,
+    };
   },
 });
 
